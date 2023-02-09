@@ -112,14 +112,19 @@ foreach(source IN LISTS FILE_SOURCES)
     source_group("${source_path_final}" FILES "${source}")
 endforeach()
 
+
+
 # Main files
-file(GLOB_RECURSE MAIN_SOURCES RELATIVE
+file(GLOB_RECURSE MAIN_SOURCES
     ${CMAKE_HOME_DIRECTORY}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CrossWindow/Main/${XWIN_API_PATH}Main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CrossWindow/Main/${XWIN_API_PATH}Main.mm
 )
 
+
 set(XMAIN_SOURCES ${MAIN_SOURCES} CACHE STRING "Global Variable - The source files for the currently active protocol.")
+
+message("Debug CrossWindow-----------------${XMAIN_SOURCES}")
 
 # =============================================================
 
@@ -136,7 +141,7 @@ function(xwin_add_executable targetProject targetSources)
         source_group("" FILES "${source}")
     endforeach()
     set(XWIN_FILES "${XMAIN_SOURCES}" "${targetSources}")
-
+    
     if(XWIN_API STREQUAL "WIN32" OR XWIN_API STREQUAL "UWP")
         add_executable(
             ${targetProject}
